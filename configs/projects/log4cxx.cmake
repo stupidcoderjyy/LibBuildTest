@@ -1,0 +1,18 @@
+ExternalProject_Add(
+        ${LIB_NAME}
+        SOURCE_DIR ${LIB_SOURCE_DIR}
+        BINARY_DIR ${LIB_SOURCE_DIR}/build
+        CONFIGURE_COMMAND ${CMAKE_COMMAND}
+        # 设置PKG_CONFIG_PATH环境变量
+        -E env PKG_CONFIG_PATH=${PKG_CONFIG_PATH}
+        # 执行CMake构建
+        ${CMAKE_COMMAND} ${LIB_SOURCE_DIR} ${LIB_CMAKE_ARGS}
+
+        BUILD_COMMAND ${LIB_BUILD_COMMAND}
+        INSTALL_COMMAND ${LIB_INSTALL_COMMAND}
+        BUILD_ALWAYS OFF
+        LOG_CONFIGURE ON
+        LOG_BUILD ON
+        LOG_INSTALL ON
+        DEPENDS ${LIB_DEPENDS}
+)
