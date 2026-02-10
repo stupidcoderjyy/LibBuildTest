@@ -3,14 +3,15 @@
 # 设置脚本执行模式：遇到错误立即退出，未定义变量立即报错
 set -euo pipefail
 
-echo "[1/3] 解压源代码"
+echo "[1/4] 解压源代码"
 
 # 解压到libsrc
+chmod +x ./shell/unzip.sh
 if ! ./shell/unzip.sh; then
     exit 1
 fi
 
-echo "[2/3] 更新Cmake"
+echo "[2/4] 更新Cmake"
 
 # 定义源压缩文件目录和目标解压目录
 OUT_DIR="./out"
@@ -26,11 +27,18 @@ if ! cmake ..; then
     exit 1  # 退出脚本，退出码为1表示执行失败
 fi
 
-echo "[3/3] 编译并安装依赖库"
+echo "[3/4] 编译并安装依赖库"
 # cmake执行成功后，执行make build-all
 if ! make build-all; then
     echo "错误：make build-all 执行失败！" >&2
     exit 1
+fi
+echo "[4/4] 输出目录"
+cd ..
+chmod +x ./shell/rename.sh
+if ! ./shell/rename.sh; then
+  echo "错误：输出目录失败" >&2
+  exit 1
 fi
 
 echo "编译成功"

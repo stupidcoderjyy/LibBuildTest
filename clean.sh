@@ -1,7 +1,9 @@
 # 定义要删除的目录
 BUILD_DIR="./build"
 SOURCE_DIR="./libsrc"
+OUT_DIR="./out"
 
 # 静默删除构建目录（存在则删，不存在不报错）
 [ -d "$BUILD_DIR" ] && rm -rf "$BUILD_DIR"
 [ -d "$SOURCE_DIR" ] && rm -rf "$SOURCE_DIR"
+[ -d "$OUT_DIR" ] && rm -rf "$OUT_DIR"

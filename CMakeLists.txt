@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 
 project(LibBuildTest)
 
@@ -17,11 +17,23 @@ set(LIB_CONFIG_ROOT ${CMAKE_CURRENT_SOURCE_DIR}/configs)
 
 set(${LIB_NAME_GROUP} "")
 
+# 动态执行代码的宏
+macro(cmake_language_eval_316 code_str)
+    # 生成唯一的临时文件路径（避免多调用冲突）
+    set(temp_eval_file "${CMAKE_BINARY_DIR}/eval_temp_${CMAKE_CURRENT_LIST_LINE}.cmake")
+    # 将动态代码写入临时文件
+    file(WRITE ${temp_eval_file} "${code_str}")
+    # 执行临时文件（等价于 EVAL 执行代码）
+    include(${temp_eval_file})
+    # 清理临时文件（可选，避免冗余）
+    file(REMOVE ${temp_eval_file})
+endmacro()
+
 foreach(LIB_ID ${LIB_ID_GROUP})
     # 获取名称，如apr
-    cmake_language(EVAL CODE "set(LIB_NAME \${NAME_${LIB_ID}})")
+    cmake_language_eval_316("set(LIB_NAME \${NAME_${LIB_ID}})")
     # 获取带版本号的全称，如apr-1.7.6
-    cmake_language(EVAL CODE "set(LIB_VERSIONED_NAME ${LIB_NAME}-\${VERSION_${LIB_ID}})")
+    cmake_language_eval_316("set(LIB_VERSIONED_NAME ${LIB_NAME}-\${VERSION_${LIB_ID}})")
     # 库根目录
     set(LIB_SOURCE_DIR ${LIB_SRC_ROOT}/${LIB_VERSIONED_NAME})
     # 检查路径的存在性

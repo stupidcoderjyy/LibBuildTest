@@ -2,3 +2,4 @@
 build
 libsrc
 out
+out_named
