@@ -31,7 +31,6 @@ else
         # 检查目标目录是否已存在
         target_path="$UNZIP_DIR/$core_name"
         if [ -d "$target_path" ]; then
-            echo "跳过: $file"
             continue
         fi
 
@@ -39,10 +38,10 @@ else
         echo "解压: $file"
         case "$file" in
             *.zip)
-                unzip -q "$file" -d "$UNZIP_DIR"  # -q 静默解压，减少输出
+                unzip -q -o -DD "$file" -d "$UNZIP_DIR"  # -q 静默解压，减少输出
                 ;;
             *.tar.gz|*.tgz)
-                tar -xzf "$file" -C "$UNZIP_DIR"
+                tar -zxf "$file" -C "$UNZIP_DIR"
                 ;;
             *.tar.bz2|*.tbz2)
                 tar -xjf "$file" -C "$UNZIP_DIR"

@@ -1,0 +1,7 @@
+# 核心脚本
+[p] +x ./clean.sh
+[p] +r ./shell/permissions/lib_files.txt
+[p] +x ./shell/rename.sh
+[p] +x ./shell/unzip.sh
+[p] +x ./shell/apply_patches.sh
+[p] +x ./shell/download_sources.sh

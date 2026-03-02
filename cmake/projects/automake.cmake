@@ -1,12 +1,25 @@
-# autotools类型库：使用配置文件中的LIB_CONFIGURE_COMMAND
+# 构建和安装命令
+set(LIB_CONFIGURE_COMMAND
+        ${LIB_SOURCE_DIR}/configure
+        --prefix=${LIB_INSTALL_PREFIX}
+)
+set(LIB_BUILD_COMMAND 
+        make -j16
+)
+set(LIB_INSTALL_COMMAND 
+        make install
+)
+
+# 依赖
+set(LIB_DEPENDS "")
+
 ExternalProject_Add(
         ${LIB_NAME}
         SOURCE_DIR ${LIB_SOURCE_DIR}
-        BINARY_DIR ${LIB_SOURCE_DIR}/build
+        BINARY_DIR ${LIB_SOURCE_DIR}
         CONFIGURE_COMMAND ${LIB_CONFIGURE_COMMAND}
         BUILD_COMMAND ${LIB_BUILD_COMMAND}
         INSTALL_COMMAND ${LIB_INSTALL_COMMAND}
-        BUILD_ALWAYS OFF
         LOG_CONFIGURE ON
         LOG_BUILD ON
         LOG_INSTALL ON

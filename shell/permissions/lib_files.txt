@@ -1,0 +1,5 @@
+# 库文件
+[p] +x ./libsrc/boost-1.83.0/bootstrap.sh
+[p] +x ./libsrc/boost-1.83.0/tools/build/src/engine/build.sh
+[p] +x ./libsrc/curl-8.1.2/configure
+[p] +r ./shell/permissions/openblas.txt

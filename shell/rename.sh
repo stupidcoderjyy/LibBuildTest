@@ -3,6 +3,8 @@
 # 定义核心目录路径（可根据实际路径修改）
 OUT_DIR="./out"
 LIBZIPS_DIR="./libzips"
+# 输出目录
+OUT_NAMED_DIR="./out_named"
 
 
 # 功能：去除文件的常见后缀（压缩包/库文件后缀），返回纯“库名-版本号”部分
@@ -26,8 +28,6 @@ remove_file_suffix() {
 }
 
 rename() {
-    # 创建输出目录
-    OUT_NAMED_DIR="./out_named"
     mkdir -p "${OUT_NAMED_DIR}"
 
     # 检查out目录是否存在
@@ -80,12 +80,12 @@ rename() {
         target_dir="${OUT_NAMED_DIR}/${pure_name}"  # 用去除后缀后的"库名-版本号"作为目标名
 
         # 5. 执行重命名（带安全检查）
+        echo "${target_dir}"
         if [ -d "${original_dir}" ]; then
             if [ -d "${target_dir}" ]; then
-                echo "跳过：目标目录 ${target_dir} 已存在"
+                echo "跳过：${target_dir} 目标目录已存在"
             else
                 cp -r "${original_dir}" "${target_dir}"
-                echo "成功：${target_dir}"
             fi
         else
             echo "跳过：${original_dir} 目录不存在"

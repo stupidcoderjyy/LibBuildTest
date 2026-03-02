@@ -1,0 +1,45 @@
+# 预定义变量
+# LIB_NAME
+# LIB_VERSIONED_NAME
+# LIB_SOURCE_DIR
+# LIB_INSTALL_PREFIX
+
+# 构建和安装命令
+set(LIB_CMAKE_ARGS
+        -DCMAKE_INSTALL_PREFIX=${LIB_INSTALL_PREFIX}
+        -DCMAKE_BUILD_TYPE=${BUILD_TYPE}
+        -DBUILD_SHARED_LIBS=ON
+        -DAPR_INCLUDE_DIR=${INSTALL_DIR}/${NAME_APR}/include
+        -DAPR_LIBRARY=${INSTALL_DIR}/${NAME_APR}/lib/libapr-1.so
+        -DAPRUTIL_INCLUDE_DIR=${INSTALL_DIR}/${NAME_APR_UTIL}/include
+        -DAPRUTIL_LIBRARY=${INSTALL_DIR}/${NAME_APR_UTIL}/lib/libaprutil-1.so
+)
+set(LIB_BUILD_COMMAND make -j16)
+set(LIB_INSTALL_COMMAND make install)
+
+# 依赖
+set(LIB_DEPENDS 
+        ${NAME_APR}
+        ${NAME_APR_UTIL}
+        ${NAME_OPENSSL}
+        ${NAME_ISL}
+)
+
+set(OPENSSL ${INSTALL_DIR}/${NAME_OPENSSL})
+
+ExternalProject_Add(
+        ${LIB_NAME}
+        SOURCE_DIR ${LIB_SOURCE_DIR}
+        BINARY_DIR ${LIB_SOURCE_DIR}
+        CONFIGURE_COMMAND ${CMAKE_COMMAND}
+                # 解决找不到libisl.so的问题
+                -E env PATH=${INSTALL_DIR}/${NAME_ISL}/lib:${OPENSSL}:$ENV{PATH}
+                cmake . ${LIB_CMAKE_ARGS}
+        BUILD_COMMAND ${LIB_BUILD_COMMAND}
+        INSTALL_COMMAND ${LIB_INSTALL_COMMAND}
+        BUILD_ALWAYS OFF
+        LOG_CONFIGURE ON
+        LOG_BUILD ON
+        LOG_INSTALL ON
+        DEPENDS ${LIB_DEPENDS}
+)
