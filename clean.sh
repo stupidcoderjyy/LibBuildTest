@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 定义需要操作的目标文件夹列表
-TARGET_DIRS=("build" "libsrc" "out" "out_named")
+TARGET_DIRS=("build" "libsrc" "out")
 
 # 显示用法提示的函数
 show_usage() {

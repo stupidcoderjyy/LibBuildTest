@@ -1,0 +1,8 @@
+# 本脚本自动生成，见./cmake/projects/OpenBLAS.cmake
+cd @LIB_SOURCE_DIR@
+if ! @BUILD_CMD_STR@; then
+    echo "Build failed"
+    exit 1
+fi
+echo "=====Installing OpenBLAS====="
+@BUILD_CMD_STR@ install

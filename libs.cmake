@@ -17,6 +17,12 @@ set(NAME_SUITESPARSE SuiteSparse)
 set(NAME_ZSTD zstd)
 set(NAME_DWARF dwarf)
 set(NAME_TEXINFO texinfo)
+set(NAME_ZMQ libzmq)
+set(NAME_JSONCPP jsoncpp)
+set(NAME_MINPACK cminpack)
+set(NAME_MAGIC_ENUM magic_enum)
+set(NAME_CPPCODEC cppcodec)
+set(NAME_RAPIDJSON rapidjson)
 
 set(VERSION_AUTOMAKE "1.16.5")
 set(VERSION_APR "1.7.6")
@@ -37,6 +43,12 @@ set(VERSION_SUITESPARSE "7.2.2")
 set(VERSION_ZSTD "1.5.6")
 set(VERSION_DWARF "0.11.0")
 set(VERSION_TEXINFO "7.1")
+set(VERSION_ZMQ "4.3.5")
+set(VERSION_JSONCPP "1.9.5")
+set(VERSION_MINPACK "1.3.11")
+set(VERSION_MAGIC_ENUM "0.9.5")
+set(VERSION_CPPCODEC "0.2")
+set(VERSION_RAPIDJSON "1.1.0")
 
 set(LIB_ID_GROUP
         # 库               依赖
@@ -51,7 +63,6 @@ set(LIB_ID_GROUP
         OPENSSL
         CURL               # OPENSSL
         
-        # TEXINFO
         GMP                # lex（必须预先安装） AUTOMAKE
         LIBZIP
         ISL                # GMP LIBZIP
@@ -62,10 +73,17 @@ set(LIB_ID_GROUP
         SUITESPARSE        # OPENBLAS GMP MPFR
 
         POCO               # APR APR_UTIL OPENSSL ISL
+
+        ZMQ
+        JSONCPP
+        MINPACK
+        MAGIC_ENUM
+        CPPCODEC
+        RAPIDJSON
 )
 
 # 检查外部依赖
 find_package(Lex REQUIRED)
-find_package(TexInfo)
-
-set(TEXINFO_IGNORED ${TexInfo_FOUND})
+# find_package(TexInfo)
+# 
+# set(TEXINFO_IGNORED ${TexInfo_FOUND})

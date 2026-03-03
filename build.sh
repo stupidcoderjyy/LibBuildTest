@@ -1,10 +1,6 @@
 #!/bin/bash
 
 unzip() {
-    if ! ./shell/download_sources.sh; then
-        echo "源码下载失败" >&2
-        exit 1
-    fi
     ./shell/unzip.sh
     if ! sudo ./shell/permission.sh --./shell/permissions/lib_files.txt; then
         echo "库文件权限设置失败" >&2
@@ -40,14 +36,6 @@ install() {
     fi
 }
 
-output() {
-    cd ..
-    if ! ./shell/rename.sh; then
-        echo "错误：输出目录失败" >&2
-        exit 1
-    fi
-}
-
 # 设置脚本执行模式：遇到错误立即退出，未定义变量立即报错
 set -euo pipefail
 
@@ -58,19 +46,16 @@ if ! sudo ./shell/permission.sh --./shell/permissions/core_files.txt; then
     exit 1
 fi
 
-echo "[1/5] 解压源代码"
+echo "[1/4] 解压源代码"
 unzip
 
-echo "[2/5] 修改源码"
+echo "[2/4] 修改源码"
 apply_patches
 
-echo "[3/5] 更新Cmake"
+echo "[3/4] 更新Cmake"
 build
 
-echo "[4/5] 编译并安装依赖库"
+echo "[4/4] 编译并安装依赖库"
 install
-
-echo "[5/5] 输出目录"
-output
 
 echo "编译成功"

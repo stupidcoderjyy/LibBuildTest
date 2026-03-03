@@ -4,23 +4,17 @@
 # LIB_SOURCE_DIR
 # LIB_INSTALL_PREFIX
 
-set(LIB_BUILD_COMMAND 
-        make -j16
-)
-set(LIB_INSTALL_COMMAND 
-        make install PREFIX=${LIB_INSTALL_PREFIX}
-)
-
 # 依赖
 set(LIB_DEPENDS "")
 
 ExternalProject_Add(
         ${LIB_NAME}
         SOURCE_DIR ${LIB_SOURCE_DIR}
-        BINARY_DIR ${LIB_SOURCE_DIR}
         CONFIGURE_COMMAND ""
-        BUILD_COMMAND ${LIB_BUILD_COMMAND}
-        INSTALL_COMMAND ${LIB_INSTALL_COMMAND}
+        BUILD_COMMAND ""
+        # 先创建文件夹，然后复制头文件
+        INSTALL_COMMAND sudo mkdir -p ${LIB_INSTALL_PREFIX}/include
+        COMMAND sudo cp -r ${LIB_SOURCE_DIR}/include/. ${LIB_INSTALL_PREFIX}/include
         LOG_CONFIGURE ON
         LOG_BUILD ON
         LOG_INSTALL ON

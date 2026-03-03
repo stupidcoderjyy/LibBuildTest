@@ -17,10 +17,6 @@ set(LIB_BUILD_COMMAND
         runtime-link=shared
         install
 )
-set(LIB_INSTALL_COMMAND 
-        # 安装命令已包含在构建命令中
-        echo "Boost安装完成"
-)
 
 set(ZSTD ${INSTALL_DIR}/${NAME_ZSTD})
 
@@ -35,7 +31,7 @@ ExternalProject_Add(
         BUILD_COMMAND ${CMAKE_COMMAND}
                 -E env PATH=${ZSTD}:$ENV{PATH}
                 ${LIB_BUILD_COMMAND}
-        INSTALL_COMMAND ${LIB_INSTALL_COMMAND}
+        INSTALL_COMMAND ""
         LOG_CONFIGURE ON
         LOG_BUILD ON
         LOG_INSTALL ON

@@ -1,2 +1,0 @@
-# OpenBLAS临时脚本
-[u] +x ./shell/BuildOpenBLAS.sh

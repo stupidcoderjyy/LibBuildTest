@@ -9,12 +9,6 @@ set(MAGE_ARGS
         JOBS=16
 )
 
-# 构建和安装命令
-set(LIB_CONFIGURE_COMMAND 
-        # 不能设置为空
-        echo "No configure step for SuiteSparse"
-)
-
 set(LIB_BUILD_COMMAND 
         make ${MAGE_ARGS}
 )
@@ -41,7 +35,7 @@ ExternalProject_Add(
         ${LIB_NAME}
         SOURCE_DIR ${LIB_SOURCE_DIR}
         BINARY_DIR ${LIB_SOURCE_DIR}
-        CONFIGURE_COMMAND ${LIB_CONFIGURE_COMMAND}
+        CONFIGURE_COMMAND ""
         BUILD_COMMAND ${CMAKE_COMMAND}
                 -E env PATH=${ADDITIONAL_PATH}:$ENV{PATH}
                 ${LIB_BUILD_COMMAND}
